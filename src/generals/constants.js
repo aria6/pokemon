@@ -1,0 +1,1 @@
+export const POKEMON_GRAPHQL_URI = 'https://graphql-pokeapi.vercel.app/api/graphql';
