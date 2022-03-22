@@ -1,10 +1,10 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from '@emotion/styled';
 
-import { POKEMON_GRAPHQL_URI } from './generals/constants';
+import {PokemonList, PokemonDetail, MyPokemon} from './scenes';
 
-import logo from './logo.svg';
-import './App.css';
+import { POKEMON_GRAPHQL_URI } from './generals/constants';
 
 function App() {
   const client = new ApolloClient({
@@ -14,26 +14,17 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <Container>
-        <MobileView>
-          <div className='App'>
-            <header className='App-header'>
-              <img src={logo} className='App-logo' alt='logo' />
-              <p>
-                Edit <code>src/App.js</code> and save to reload.
-              </p>
-              <a
-                className='App-link'
-                href='https://reactjs.org'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                Learn React
-              </a>
-            </header>
-          </div>
-        </MobileView>
-      </Container>
+      <BrowserRouter>
+        <Container>
+          <MobileView>
+            <Routes>
+              <Route path='/' element={<PokemonList />} />
+              <Route path='pokemon_detail' element={<PokemonDetail />} />
+              <Route path='my_pokemon' element={<MyPokemon />} />
+            </Routes>
+          </MobileView>
+        </Container>
+      </BrowserRouter>
     </ApolloProvider>
   );
 }
