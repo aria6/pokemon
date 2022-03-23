@@ -1,10 +1,15 @@
+import React, { useState } from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from '@emotion/styled';
 
-import {PokemonList, PokemonDetail, MyPokemon} from './scenes';
+import { PokemonList, PokemonDetail, MyPokemon } from './scenes';
 
 import { POKEMON_GRAPHQL_URI } from './generals/constants';
+import {
+  MyPokemonContext,
+  DEFAULT_VALUE,
+} from './generals/context/myPokemonContext';
 
 function App() {
   const client = new ApolloClient({
@@ -12,20 +17,35 @@ function App() {
     cache: new InMemoryCache(),
   });
 
+  let localStoregeData = localStorage.getItem('myPokemon');
+  let [myPokemon, setMyPokemon] = useState(
+    localStoregeData ? JSON.parse(localStoregeData) : DEFAULT_VALUE.myPokemon
+  );
+
   return (
-    <ApolloProvider client={client}>
-      <BrowserRouter>
-        <Container>
-          <MobileView>
-            <Routes>
-              <Route path='/' element={<PokemonList />} />
-              <Route path='pokemon_detail' element={<PokemonDetail />} />
-              <Route path='my_pokemon' element={<MyPokemon />} />
-            </Routes>
-          </MobileView>
-        </Container>
-      </BrowserRouter>
-    </ApolloProvider>
+    <MyPokemonContext.Provider
+      value={{
+        myPokemon,
+        setMyPokemon: (newData) => {
+          localStorage.setItem('myPokemon', JSON.stringify(newData));
+          setMyPokemon(newData);
+        },
+      }}
+    >
+      <ApolloProvider client={client}>
+        <BrowserRouter>
+          <Container>
+            <MobileView>
+              <Routes>
+                <Route path='/' element={<PokemonList />} />
+                <Route path='pokemon_detail' element={<PokemonDetail />} />
+                <Route path='my_pokemon' element={<MyPokemon />} />
+              </Routes>
+            </MobileView>
+          </Container>
+        </BrowserRouter>
+      </ApolloProvider>
+    </MyPokemonContext.Provider>
   );
 }
 
