@@ -99,6 +99,7 @@ function MyPokemon() {
                   <img src={item.image} width={100} height={100} loading="lazy" alt='my-pokemon-img' />
                 )}
                 <div>{item.nickname}</div>
+                <PokemonName>{item.name}</PokemonName>
                 <button
                   style={styles.releaseButton}
                   onClick={() => {
@@ -151,6 +152,10 @@ const Title = styled.div`
   font-weight: bold;
   text-align: center;
   margin-top: 20px;
+`;
+
+const PokemonName = styled.div`
+  font-weight: normal;
 `;
 
 // TODO : I dont know the issues yet, when i want to implement display flex on emotion/styled is not work like what i want
