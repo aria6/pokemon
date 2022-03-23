@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 import Header from '../generals/components/Header';
 
 import { GET_POKEMONS } from '../generals/querys';
+import { useMyPokemon } from '../generals/context/myPokemonContext';
 
 function PokemonList() {
+  let navigate = useNavigate();
+  let { myPokemon } = useMyPokemon();
+
   let [limit, setLimit] = useState(10);
   let [activePage, setActivePage] = useState(1);
 
@@ -101,11 +106,26 @@ function PokemonList() {
         {data &&
           data.pokemons.results.map((item, index) => {
             return (
-              <div style={styles.itemList} key={`pokemonList-${index}`}>
+              <div
+                style={styles.itemList}
+                onClick={() => {
+                    // TODO : Change the best apparoach, because pokemon detail not provide the image
+                    localStorage.setItem('imagePokemon', item.image);
+                    navigate(`/pokemon_detail/${item.name}`);
+                }}
+                key={`pokemonList-${index}`}
+              >
                 {item.image && (
                   <img src={item.image} width={100} height={100} />
                 )}
                 <div>{item.name}</div>
+                <OwnedWrapper>
+                  owened :{' '}
+                  {myPokemon.reduce(
+                    (acc, cur) => (cur.name === item.name ? acc + 1 : acc),
+                    0
+                  )}
+                </OwnedWrapper>
               </div>
             );
           })}
@@ -138,6 +158,10 @@ const ToolbarItem = styled.div`
   margin: 20px 10px 20px 10px;
   display: flex;
   flex-direction: row;
+`;
+
+const OwnedWrapper = styled.div`
+  font-weight: normal;
 `;
 
 // TODO : I dont know the issues yet, when i want to implement display flex on emotion/styled is not work like what i want

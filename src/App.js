@@ -38,7 +38,7 @@ function App() {
             <MobileView>
               <Routes>
                 <Route path='/' element={<PokemonList />} />
-                <Route path='pokemon_detail' element={<PokemonDetail />} />
+                <Route path='pokemon_detail/:pokemon' element={<PokemonDetail />} />
                 <Route path='my_pokemon' element={<MyPokemon />} />
               </Routes>
             </MobileView>
