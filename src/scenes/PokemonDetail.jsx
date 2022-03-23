@@ -32,8 +32,10 @@ function PokemonDetail() {
       <ModalContainer>
         <ModalContent>
           <img
+          loading="lazy"
             src='https://thumbs.gfycat.com/DampSpanishCleanerwrasse-max-1mb.gif'
             width='50%'
+            alt='catch-pokemon'
           />
           <SuccessMessage>{isSuccess ? 'Gotcha' : 'Ah fail'}</SuccessMessage>
           {isSuccess ? (
@@ -120,7 +122,7 @@ function PokemonDetail() {
             </ToolbarItem>
           </Toolbar>
           <PokemonInfoWrapper>
-            <img src={image} width='40%' />
+            <img src={image} width='40%' loading="lazy" alt="pokemon" />
             <TitlePokemonName>{data?.pokemon.name || ''}</TitlePokemonName>
             <TypeWrapper>
               {data.pokemon.types.map((item, index) => {

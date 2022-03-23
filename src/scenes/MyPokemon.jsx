@@ -96,7 +96,7 @@ function MyPokemon() {
             return (
               <div style={styles.itemList} key={`pokemonList-${index}`}>
                 {item.image && (
-                  <img src={item.image} width={100} height={100} />
+                  <img src={item.image} width={100} height={100} loading="lazy" alt='my-pokemon-img' />
                 )}
                 <div>{item.nickname}</div>
                 <button

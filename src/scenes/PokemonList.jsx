@@ -116,7 +116,7 @@ function PokemonList() {
                 key={`pokemonList-${index}`}
               >
                 {item.image && (
-                  <img src={item.image} width={100} height={100} />
+                  <img src={item.image} width={100} height={100} loading="lazy" alt='pokemon' />
                 )}
                 <div>{item.name}</div>
                 <OwnedWrapper>

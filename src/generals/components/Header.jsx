@@ -12,7 +12,7 @@ function Header() {
   return (
     <Container>
       {pathname === '/' ? (
-        <img src={POKEMON_IMAGE} height='35vp' />
+        <img src={POKEMON_IMAGE} height='35vp' loading="lazy" alt='pokemon-logo' />
       ) : (
         <BackButton onClick={() => navigate('../')}>
           <div>&larr; Back</div>
