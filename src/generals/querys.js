@@ -16,6 +16,13 @@ export const GET_POKEMONS = gql`
 export const GET_POKEMON_DETAIL = gql`
   query GetPokemonDetail($name: String!) {
     pokemon(name: $name) {
+      id
+      name
+      types {
+        type {
+          name
+        }
+      }
       abilities {
         ability {
           name
@@ -32,8 +39,6 @@ export const GET_POKEMON_DETAIL = gql`
       stats {
         base_stat
         stat {
-          id
-          url
           name
         }
       }
